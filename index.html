@@ -264,7 +264,73 @@ $(document).ready(function () {
 </div>
 
 
-<p>Hello, Website!</p>
+<div id="nuestro-primera-página" class="section level2">
+<h2>Nuestro primera página</h2>
+<p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="https://www.academia.edu/38513926/Clasificaci%C3%B3n_por_capitales_de_una_muestra_de_microempresarios_del_%C3%81rea_Metropolitana_de_Bucaramanga_a_partir_del_An%C3%A1lisis_de_Correspondencia_M%C3%BAltiple" class="uri">https://www.academia.edu/38513926/Clasificaci%C3%B3n_por_capitales_de_una_muestra_de_microempresarios_del_%C3%81rea_Metropolitana_de_Bucaramanga_a_partir_del_An%C3%A1lisis_de_Correspondencia_M%C3%BAltiple</a>.</p>
+<pre class="r"><code>##EFICIENCIA####
+
+rm(list=ls())
+h= rep(NA,100) 
+for(i in 1:100){
+  
+set.seed(i)
+  
+PIB2=round(rnorm(1000, 3.47,0.8 ),2)
+Desempleo2=round(rnorm(1000,11.56,0.9),2)
+beta1=rnorm(1000, -0.002115,0.0002)
+beta2=rnorm(1000, -0.005036,0.0001)
+IDH2=  0.755765 + beta1*PIB2
+datos=data.frame(IDH2, PIB2, Desempleo2)
+head(datos)
+datos1=datos[sample(nrow(datos), 950), ]
+modelo=lm(datos1$IDH2~datos1$PIB2)##
+vec=as.vector(coef(modelo))
+h[[i]]=vec[2]
+
+}
+
+
+mean(h)</code></pre>
+<pre><code>## [1] -0.002117183</code></pre>
+<pre class="r"><code>desv=sqrt(var(h))
+desv</code></pre>
+<pre><code>## [1] 2.913388e-05</code></pre>
+<pre class="r"><code>###CONSISTENCIA###
+
+
+c= rep(NA,20) 
+for(i in 1:20){
+  
+  set.seed(20)
+  
+  PIB2=round(rnorm(1000, 3.47,0.8 ),2)
+  Desempleo2=round(rnorm(1000,11.56,0.9),2)
+  beta1=rnorm(1000, -0.002115,0.0002)
+  beta2=rnorm(1000, -0.005036,0.0001)
+  IDH2=  0.755765 + beta1*PIB2
+  datos=data.frame(IDH2, PIB2, Desempleo2)
+  head(datos)
+  datos2=datos[sample(nrow(datos), (50*i)), ]
+  modelo=lm(datos2$IDH2~datos2$PIB2)##
+  vec=as.vector(coef(modelo))
+  c[[i]]=vec[2]
+  
+}
+
+
+
+lm(datos2$IDH2~datos2$PIB2)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = datos2$IDH2 ~ datos2$PIB2)
+## 
+## Coefficients:
+## (Intercept)  datos2$PIB2  
+##    0.755772    -0.002113</code></pre>
+<pre class="r"><code>plot(c)
+abline(h=-0.002115,col=&quot;purple&quot;)</code></pre>
+<p><img src="index_files/figure-html/setup-1.png" width="672" /></p>
+</div>
 
 
 

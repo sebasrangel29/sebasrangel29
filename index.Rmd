@@ -65,6 +65,5 @@ for(i in 1:20){
 lm(datos2$IDH2~datos2$PIB2)
 plot(c)
 abline(h=-0.002115,col="purple")
-
 ```
 
